@@ -1,0 +1,19 @@
+/* Balises dark */
+body {
+	background-color: #1f2e2e;
+	color: #d9d9d9;
+}
+
+/* Classes dark */
+.mention {
+	background-color: #804600;
+	color: #f0f0f0;
+}
+
+.mention a {
+	color: #f0f0f0;
+}
+
+.top-header {
+	background-color: #804600;
+}

@@ -1,0 +1,40 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.top-header {
+	position: sticky;
+	justify-content: right;
+	align-items: center;
+	width: 100%;
+	height: 50px;
+}
+
+.banner {
+	display: flex;
+}
+
+.mention {
+	bottom: 0;
+	justify-content: center;
+	width: 100%;
+	height: 150px;
+	text-align: center;
+}
+
+.mention > div {
+	margin: 20px;
+}
+
+.mention a {
+	text-decoration: none;
+}
+
+.connexion {
+	padding-right: 10px;
+}
+
+.msg-erreur {
+	color: #ff0000;
+}

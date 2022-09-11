@@ -1,0 +1,19 @@
+/* Balises light */
+body {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+/* Classes light */
+.mention {
+	background-color: #ffe4c4;
+	color: #737373;
+}
+
+.mention a {
+	color: #737373;
+}
+
+.top-header {
+	background-color: #ffe4c4;
+}
