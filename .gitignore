@@ -1,3 +1,5 @@
 /private
 .project
 .buildpath
+/vendor
+.settings/org.eclipse.core.resources.prefs
