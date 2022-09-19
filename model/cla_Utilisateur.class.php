@@ -6,25 +6,25 @@ class cla_Utilisateur {
 	 * Identifiant de l'utilisateur
 	 * @var int
 	 */
-	private $ci_idUtilisateur;
+	private int $ci_idUtilisateur;
 
 	/**
 	 * Nom de l'utilisateur
 	 * @var string
 	 */
-	private $cs_nomUtilisateur;
+	private string $cs_nomUtilisateur;
 
 	/**
 	 * Prénom de l'utilisateur
 	 * @var string
 	 */
-	private $cs_prenomUtilisateur;
+	private string $cs_prenomUtilisateur;
 
 	/**
 	 * Email de l'utilisateur
 	 * @var string
 	 */
-	private $cs_emailUtilisateur;
+	private string $cs_emailUtilisateur;
 
 	/**
 	 * 
