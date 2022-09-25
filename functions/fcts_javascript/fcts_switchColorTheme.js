@@ -7,5 +7,6 @@ function fct_switchColorTheme(po_btnElement) {
 }
 
 function fct_loadColorTheme() {
-	
+	let fo_linkThemeElement = document.querySelector("#colorTheme");
+	fo_linkThemeElement.href = 'css/style.dark.css';
 }
