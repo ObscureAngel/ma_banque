@@ -21,13 +21,19 @@ export function fct_createPopup(ps_idPopup, ps_htmlContent, ps_cssContent, ps_js
  * 
  * @param {string} ps_idPopup ID du popup
  */
-export function fct_openPopup(ps_idPopup) {}
+export function fct_openPopup(ps_idPopup) {
+	let fo_popup = document.querySelector("#" + ps_idPopup);
+	fo_popup.style.display = "block";
+}
 
 /**
  * 
  * @param {string} ps_idPopup ID du popup
  */
-export function fct_closePopup(ps_idPopup) {}
+export function fct_closePopup(ps_idPopup) {
+	let fo_popup = document.querySelector("#" + ps_idPopup);
+	fo_popup.style.disaply = "none";
+}
 
 /**
  * 
@@ -36,13 +42,20 @@ export function fct_closePopup(ps_idPopup) {}
  * @param {string} ps_cssContent Contenu CSS
  * @param {string} ps_jsContent Contenu JS
  */
-export function fct_updatePopup(ps_idPopup, ps_htmlContent, ps_cssContent, ps_jsContent) {}
+export function fct_updatePopup(ps_idPopup, ps_htmlContent, ps_cssContent, ps_jsContent) {
+	fct_updateHtmlContent(ps_idPopup, ps_htmlContent);
+	fct_updateCssContent(ps_idPopup, ps_cssContent);
+	fct_updateJsContent(ps_idPopup, ps_jsContent);
+}
 
 /**
  * 
  * @param {string} ps_idPopup ID du popup
  */
-export function fct_deletePopup(ps_idPopup) {}
+export function fct_deletePopup(ps_idPopup) {
+	let fo_popup = document.querySelector("#" + ps_idPopup);
+	fo_popup.parentNode.removeChild(fo_popup);
+}
 
 /**
  * 
