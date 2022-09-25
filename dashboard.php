@@ -46,7 +46,6 @@ $ls_texteAccueil .= ' ' . $_SESSION['ao_utilisateur']->fct_getPrenomUtilisateur(
 	<section></section>
 
 	<?php include_once('html_parts/footer.html'); ?>
-	<script src="functions/fcts_javascript/fcts_dashboard.js"></script>
 	<script type="module" src="functions/fcts_javascript/fcts_module/mod_dashboard.js"></script>
 </body>
 </html>

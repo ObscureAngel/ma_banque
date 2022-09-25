@@ -14,3 +14,11 @@ document.querySelector('#ub_deconnexion').addEventListener('click', function() {
 		}
 	);
 });
+
+document.querySelector("#openBtn").addEventListener('click', function() {
+	document.querySelector("#mySidenav").classList.add("active");
+});
+
+document.querySelector("#closeBtn").addEventListener('click', function() {
+	document.querySelector("#mySidenav").classList.remove("active");
+});
