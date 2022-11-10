@@ -58,3 +58,20 @@ body {
 	padding: 0;
 	width: 100%;
 }
+
+#compte-projet {
+	justify-content: space-evenly;
+	margin-bottom: 50px;
+}
+
+#compte {
+	
+}
+
+#projet {
+	
+}
+
+#operation {
+	justify-content: center;
+}
