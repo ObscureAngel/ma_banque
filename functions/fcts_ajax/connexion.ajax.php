@@ -31,7 +31,7 @@ function fct_connexionUtilisateur($ps_emailConnexion, $ps_motDePasse) {
 			);
 
 			$_SESSION['ab_isConnecte'] = $lb_isConnecte;
-			$_SESSION['ao_utilisateur'] = $lo_utilisateur;
+			$_SESSION['ao_utilisateur'] = serialize($lo_utilisateur);
 
 			$fa_retourAjax['aji_statutRetour'] = 1;
 		}

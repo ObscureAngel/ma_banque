@@ -6,8 +6,9 @@ session_start();
 
 function fct_deconnexionUtilisateur($pi_idDeconnexionUtilisateur) {
 	if (isset($_SESSION['ab_isConnecte']) && $_SESSION['ab_isConnecte']) {
-		$fo_utilisateur = $_SESSION['ao_utilisateur'];
-		if ($fo_utilisateur->fct_getIdUtilisateur() === $pi_idDeconnexionUtilisateur) {
+		$so_utilisateur = unserialize($_SESSION['ao_utilisateur']);
+
+		if ($so_utilisateur->fct_getIdUtilisateur() == $pi_idDeconnexionUtilisateur) {
 			session_destroy();
 			return json_encode(array(
 				"ajs_messageRetour" => "Vous avez été déconnecté, à bientôt !",

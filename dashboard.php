@@ -7,12 +7,13 @@ session_start();
 
 // Vérification de la connexion
 if (!isset($_SESSION['ab_isConnecte']) || !$_SESSION['ab_isConnecte']) header('Location: ./');
+$so_utilisateur = unserialize($_SESSION['ao_utilisateur']);
 
 $li_heure = intval(date('H'));
 if ($li_heure >= 4 && $li_heure < 18) $ls_texteAccueil = 'Bonjour';
 else $ls_texteAccueil = 'Bonsoir';
 
-$ls_texteAccueil .= ' ' . $_SESSION['ao_utilisateur']->fct_getPrenomUtilisateur();
+$ls_texteAccueil .= ' ' . $so_utilisateur->fct_getPrenomUtilisateur();
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +27,7 @@ $ls_texteAccueil .= ' ' . $_SESSION['ao_utilisateur']->fct_getPrenomUtilisateur(
 </head>
 <body>
 	<div id="mySidenav" class="sidenav">
-		<button id="ub_deconnexion" class="deconnexion" value="<?php echo $_SESSION['ao_utilisateur']->fct_getIdUtilisateur(); ?>"><img src="img/assets/logout.png" alt="Déconnexion" width="30px" /></button>
+		<button id="ub_deconnexion" class="deconnexion" value="<?php echo $so_utilisateur->fct_getIdUtilisateur(); ?>"><img src="img/assets/logout.png" alt="Déconnexion" width="30px" /></button>
 		<a id="closeBtn" href="#" class="close">&times;</a>
 		<ul>
 			<li><a href="#">Consulter vos comptes</a></li>
