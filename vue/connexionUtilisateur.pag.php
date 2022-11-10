@@ -5,7 +5,7 @@ require_once '../model/cla_Utilisateur.class.php';
 
 session_start();
 
-if (isset($_SESSION['ab_isConnecte']) && $_SESSION['ab_isConnecte']) header('Location: ../dashboard.php');
+if (isset($_SESSION['ab_isConnecte']) && $_SESSION['ab_isConnecte']) header('Location: ../tableauDeBord.pag.php');
 
 if (isset($_POST['us_validation'])) {
 	$lo_bdd = new cla_PDOMySQL();
@@ -32,7 +32,7 @@ if (isset($_POST['us_validation'])) {
 		$_SESSION['ab_isConnecte'] = $lb_isConnecte;
 		$_SESSION['ao_utilisateur'] = $lo_utilisateur;
 
-		header('Location: ../dashboard.php');
+		header('Location: ../tableauDeBord.pag.php');
 	}
 	else session_destroy();
 }

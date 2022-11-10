@@ -11,7 +11,7 @@ document.querySelector('#btn_connexion').addEventListener('click', function() {
 			"ajs_motDePasseConnexion": us_motDePasseConnexion
 		},
 		function(po_retourAjax) {
-			if (po_retourAjax.aji_statutRetour == 1 || po_retourAjax.aji_statutRetour == 2) window.location.href = "dashboard.php";
+			if (po_retourAjax.aji_statutRetour == 1 || po_retourAjax.aji_statutRetour == 2) window.location.href = "tableauDeBord.pag.php";
 			else {
 				document.querySelector("#p_erreurConnexion").innerHTML = "Erreur d'adresse email ou de mot de passe"
 
