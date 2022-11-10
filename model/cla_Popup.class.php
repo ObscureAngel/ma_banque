@@ -7,7 +7,7 @@ class cla_Popup {
      * 
      * @var string
      */
-    private string $cs_guid;
+    private $cs_guid;
     
     public function __construct() {}
 }
