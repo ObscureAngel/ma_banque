@@ -26,7 +26,7 @@ if (isset($_POST['us_validForm'])) {
 			$la_contenuCsv[7] = floatval(str_replace(',', '.', $la_contenuCsv[7]));
 			$la_contenuCsv[8] = floatval(str_replace(',', '.', $la_contenuCsv[8]));
 
-			$ls_query = 'INSERT INTO operation (bs_libelleOperation, bd_dateOperation, bf_debitOperation, bf_creditOperation) VALUES ("' . utf8_encode($la_contenuCsv[4]) . '", "' . $la_dateOperation[2] . '-' . $la_dateOperation[1] . '-' . $la_dateOperation[0] . '", ' . $la_contenuCsv[7] . ', ' . $la_contenuCsv[8] . ')';
+			$ls_query = 'INSERT INTO mb_operation (bs_libelleOperation, bd_dateOperation, bf_debitOperation, bf_creditOperation) VALUES ("' . mb_convert_encoding($la_contenuCsv[4], 'UTF-8', mb_detect_encoding($la_contenuCsv[4])) . '", "' . $la_dateOperation[2] . '-' . $la_dateOperation[1] . '-' . $la_dateOperation[0] . '", ' . $la_contenuCsv[7] . ', ' . $la_contenuCsv[8] . ')';
 			$lo_bdd->fct_requeteExecute_i($ls_query);
 		}
 	}
