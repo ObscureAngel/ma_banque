@@ -66,6 +66,7 @@ foreach ($la_operationsUtilisateurs as $la_operation) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="tableauDeBord.css">
 	<link rel="stylesheet" href="css/banque.css">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<title>Tableau de bord</title>
 </head>
 <body>
@@ -73,18 +74,20 @@ foreach ($la_operationsUtilisateurs as $la_operation) {
 		<button id="ub_deconnexion" class="deconnexion" value="<?=$so_utilisateur->fct_getIdUtilisateur()?>"><img src="img/assets/logout.png" alt="Déconnexion" width="30px" /></button>
 		<a id="closeBtn" href="#" class="close">&times;</a>
 		<ul>
-			<li><a href="#">Consulter vos comptes</a></li>
-			<li><a href="#">Consulter vos projets d'épargne</a></li>
+			<li><a href="compte.pag.php">Consulter vos comptes</a></li>
+			<li><a href="projet.pag.php">Consulter vos projets d'épargne</a></li>
 			<li><a href="#">Consulter vos dernières opérations</a></li>
-			<li><a href="#">Téléverser un relevé</a></li>
+			<li><a href="uploadReleve.pag.php">Téléverser un relevé</a></li>
 		</ul>
 	</div>
 
 	<header>
 		<p>
 			<a href="#" id="openBtn"><img src="img/assets/burger.png" alt="Menu" width="40px" /></a>
-			<span class="bienvenue"><?=$ls_texteAccueil?></span>
 		</p>
+		<div class="conteneur-flex">
+			<span class="bienvenue"><?=$ls_texteAccueil?></span>
+		</div>
 	</header>
 
 	<div id="compte-projet" class="conteneur-flex">
