@@ -305,7 +305,7 @@ class cla_PDOMySQL extends PDO {
 		// On utilisera qu'une seule variable dans la suite du code.
 		if (!is_null($pa_champsInsertion)) $fa_descriptionTableInsertion = $pa_champsInsertion;
 
-		$fs_query = "INSERT INTO " . $ps_nomTable . " () VALUES ()";
+		$fs_query = "INSERT INTO " . $ps_nomTable . " (" . implode(', ', $pa_champsInsertion) . ") VALUES ()";
 
 		/**
 		 * mbeacco - 08/06/2021
@@ -470,7 +470,7 @@ class cla_PDOMySQL extends PDO {
 	 * 
 	 * @param array $pa_valeursParametres Valeurs des paramètres SQL de la requête.
 	 * 
-	 * @return array Les résultats de la requête préparée exécutée avec les valeurs passées en paramètre
+	 * @return array|bool Les résultats de la requête préparée exécutée avec les valeurs passées en paramètre
 	 * 
 	 * @throws Exception Si aucune requête préparée n'est en cours.
 	 * @throws Exception Si les paramètres sont vides ou ne sont pas contenus dans un tableau.
