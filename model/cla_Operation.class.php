@@ -3,6 +3,7 @@
 namespace MaBanque\model;
 
 use MaBanque\DB\DBInsertion;
+use MaBanque\DB\cla_PDOMySQL;
 
 class Operation implements DBInsertion {
 	
@@ -56,9 +57,9 @@ class Operation implements DBInsertion {
 	 * Lance l'insertion des données dans la base
 	 *
 	 * @param array $pa_champsInsertion
-	 * @param \cla_PDOMySQL $po_connexionBdd
+	 * @param cla_PDOMySQL $po_connexionBdd
 	 * @return void
 	 */
-	public function fct_lancementInsertion(array &$pa_champsInsertion, \cla_PDOMySQL $po_connexionBdd) {
+	public function fct_lancementInsertion(array &$pa_champsInsertion, cla_PDOMySQL $po_connexionBdd) {
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace MaBanque\DB;
 
-use cla_PDOMySQL;
+use MaBanque\DB\cla_PDOMySQL;
 
 interface DBInsertion {
 	/**

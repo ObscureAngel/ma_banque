@@ -1,5 +1,10 @@
 <?php
 
+namespace MaBanque\DB;
+
+use Exception;
+use PDO;
+
 /**
  * Classe servant de connector PDO à la base de données
  */
