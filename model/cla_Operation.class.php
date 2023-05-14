@@ -6,6 +6,9 @@ use MaBanque\DB\DBInsertion;
 use MaBanque\DB\cla_PDOMySQL;
 
 class Operation implements DBInsertion {
+
+	private int $ci_idOperation;
+
 	
 
 	/**
