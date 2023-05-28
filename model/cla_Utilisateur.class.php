@@ -29,7 +29,12 @@ class cla_Utilisateur {
 	/**
 	 * 
 	 */
-	public function __construct($pi_idUtilisateur, $ps_nomUtilisateur, $ps_prenomUtilisateur, $ps_emailUtilisateur) {
+	public function __construct() {}
+
+	/**
+	 * 
+	 */
+	public function fct_setUtilisateur($pi_idUtilisateur, $ps_nomUtilisateur, $ps_prenomUtilisateur, $ps_emailUtilisateur) {
 		$this->ci_idUtilisateur = $pi_idUtilisateur;
 		$this->cs_nomUtilisateur = $ps_nomUtilisateur;
 		$this->cs_prenomUtilisateur = $ps_prenomUtilisateur;
@@ -90,5 +95,24 @@ class cla_Utilisateur {
 	 */
 	public function fct_getEmailUtilisateur() {
 		return $this->cs_emailUtilisateur;
+	}
+
+	/**
+	 * 
+	 */
+	public function fct_getUtilisateurJson() {
+		return '{"ci_idUtilisateur":' . $this->ci_idUtilisateur . ',"cs_nomUtilisateur":"' . $this->cs_nomUtilisateur . '","cs_prenomUtilisateur":"' . $this->cs_prenomUtilisateur . '","cs_emailUtilisateur":"' . $this->cs_emailUtilisateur . '"}';
+	}
+
+	/**
+	 * 
+	 */
+	public function fct_setUtilisateurJson($ps_json) {
+		$fo_utilisateur = json_decode($ps_json);
+
+		$this->ci_idUtilisateur = $fo_utilisateur->ci_idUtilisateur;
+		$this->cs_nomUtilisateur = $fo_utilisateur->cs_nomUtilisateur;
+		$this->cs_prenomUtilisateur = $fo_utilisateur->cs_prenomUtilisateur;
+		$this->cs_emailUtilisateur = $fo_utilisateur->cs_emailUtilisateur;
 	}
 }

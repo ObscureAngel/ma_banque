@@ -7,7 +7,8 @@ session_start();
 
 // Vérification de la connexion
 if (!isset($_SESSION['ab_isConnecte']) || !$_SESSION['ab_isConnecte']) header('Location: ./');
-$so_utilisateur = unserialize($_SESSION['ao_utilisateur']);
+$so_utilisateur = new cla_Utilisateur();
+$so_utilisateur->fct_setUtilisateurJson($_SESSION['as_utilisateur']);
 
 // Initialisation de la connexion à la base
 $lo_bdd = new cla_PDOMySQL();
@@ -93,6 +94,19 @@ foreach ($la_operationsUtilisateurs as $la_operation) {
 	<div id="compte-projet" class="conteneur-flex">
 		<section id="compte">
 			<table>
+				<style>
+					th {
+						border-bottom: 2px solid black;
+						border-left: 1px dotted blue;
+						border-right: 1px dotted blue;
+					}
+
+					td {
+						border-left: 1px dotted blue;
+						border-right: 1px dotted blue;
+						border-bottom: 1px dotted blue;
+					}
+				</style>
 				<thead>
 					<tr>
 						<th>Nom du compte</th>

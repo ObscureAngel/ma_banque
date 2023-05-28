@@ -23,7 +23,8 @@ function fct_connexionUtilisateur($ps_emailConnexion, $ps_motDePasse) {
 			$la_data = $lo_bdd->fct_requeteQueryInstant_a($ls_query);
 			$la_data = $la_data[0];
 
-			$lo_utilisateur = new cla_Utilisateur(
+			$lo_utilisateur = new cla_Utilisateur();
+			$lo_utilisateur->fct_setUtilisateur(
 				$la_data['bi_idUtilisateur'],
 				$la_data['bs_nomUtilisateur'],
 				$la_data['bs_prenomUtilisateur'],
@@ -31,7 +32,7 @@ function fct_connexionUtilisateur($ps_emailConnexion, $ps_motDePasse) {
 			);
 
 			$_SESSION['ab_isConnecte'] = $lb_isConnecte;
-			$_SESSION['ao_utilisateur'] = serialize($lo_utilisateur);
+			$_SESSION['as_utilisateur'] = $lo_utilisateur->fct_getUtilisateurJson();
 
 			$fa_retourAjax['aji_statutRetour'] = 1;
 		}
