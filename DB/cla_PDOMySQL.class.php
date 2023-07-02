@@ -122,7 +122,7 @@ class cla_PDOMySQL extends PDO {
 	/**
 	 * Permet de changer le nom de la base par défaut
 	 * 
-	 * Défaut : emails_cp
+	 * Défaut : 
 	 * 
 	 * @param string $ps_nomBDD Le nouveau nom de la base
 	 */
@@ -144,7 +144,7 @@ class cla_PDOMySQL extends PDO {
 	/**
 	 * Permet de changer le nom d'utilisateur par défaut
 	 * 
-	 * Défaut : emails_cp
+	 * Défaut : 
 	 * 
 	 * @param string $ps_utilisateurBDD Le nouveau nom d'utilisateur
 	 */

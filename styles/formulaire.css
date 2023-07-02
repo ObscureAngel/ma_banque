@@ -1,0 +1,19 @@
+@import "animations.css";
+
+.invalide {
+	border-color: #ea868f;
+	box-shadow: 0px 0px 5px #ea868f;
+}
+
+.valide {
+	border-color: #75b798;
+	box-shadow: 0px 0px 5px #75b798;
+}
+
+.asterix-requis {
+	color: red;
+}
+
+.btn-enregistrement:hover {
+	/*animation: anim_scale1-5 1s linear;*/
+}

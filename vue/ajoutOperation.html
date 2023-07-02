@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<title>Ma Banque</title>
+	<link rel="icon" href="../img/assets/ma_banque.png">
+	<link rel="stylesheet" href="/styles/formulaire.css">
+	<link rel="stylesheet" href="/styles/animations.css">
+</head>
+<body>
+	<div class="container">
+		<h2 class="display-2">Enregistrer une nouvelle opération</h2>
+		<form method="post" class="" novalidate>
+			<div class="row">
+				<div class="col col-md-6">
+					<label for="us_designation" class="form-label">Désignation du paiement <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="text" class="form-control" name="us_designation" id="us_designation" required="required" aria-required="true">
+					</div>
+				</div>
+				<div class="col col-md-6">
+					<label for="us_libellePaiement" class="form-label">Libellé du paiement <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="text" class="form-control" name="us_libellePaiement" id="us_libellePaiement" required="required" aria-required="true">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col col-md-6">
+					<label for="ud_dateOperation" class="form-label">Date de l'opération <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="date" class="form-control" name="ud_dateOperation" id="ud_dateOperation" required="required" aria-required="true">
+					</div>
+				</div>
+				<div class="col col-md-6">
+					<label for="uf_montantOperation" class="form-label">Montant de l'opération <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="text" class="form-control" pattern="/(^([0-9]+,[0-9]{1,2})$|^([0-9]+\.[0-9]{1,2})$|^([0-9]+)$)/" name="uf_montantOperation" id="uf_montantOperation" required="required" aria-required="true">
+						<span class="input-group-text">€</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col col-md-12">
+					<label for="ui_identifiantCategorie" class="form-label">Catégorie du paiement <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<select class="form-select" name="ui_identifiantCategorie" id="ui_identifiantCategorie" required="required" aria-required="true">
+		
+						</select>
+						<button class="btn btn-primary">Ajouter une catégorie</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col col-md-6">
+					<label for="us_nomEntreprise" class="form-label">Entreprise d'achat <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="text" class="form-control" name="us_nomEntreprise" id="us_nomEntreprise" required="required" aria-required="true">
+						<button class="btn btn-primary">Ajouter une entreprise</button>
+					</div>
+				</div>
+				<div class="col col-md-6">
+					
+					<label for="us_nomVille" class="form-label">Ville d'achat <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="text" class="form-control" name="us_nomVille" id="us_nomVille" required="required" aria-required="true">
+						<button class="btn btn-primary">Ajouter une ville</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col col-md-12">
+					<button class="btn btn-primary btn-enregistrement" id="btn-enregistrer">Enregistrer</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		// Affichage de la date du jour par défaut
+		document.querySelector("#ud_dateOperation").value = new Date().toISOString().slice(0, 10);
+
+		document.querySelector("#uf_montantOperation").addEventListener('blur', (po_event) => {
+			// Montant valide
+			if (po_event.target.value.match(/(^([0-9]+,[0-9]{1,2})$|^([0-9]+\.[0-9]{1,2})$|^([0-9]+)$)/gm)) {
+				po_event.target.classList.remove("invalide");
+				po_event.target.classList.add("valide");
+			}
+			else {
+				po_event.target.classList.remove("valide");
+				po_event.target.classList.add("invalide");
+			}
+		});
+
+		document.querySelector("#btn-enregistrer").addEventListener('click', (po_event) => {
+			po_event.preventDefault();
+			po_event.stopPropagation();
+
+			let fo_formulaire = new FormData();
+			fo_formulaire.append('route', 'ajout');
+			fo_formulaire.append('us_designation', document.querySelector("#us_designation").value);
+			fo_formulaire.append('us_libellePaiement', document.querySelector("#us_libellePaiement").value);
+			fo_formulaire.append('ud_dateOperation', document.querySelector("#ud_dateOperation").value);
+			fo_formulaire.append('uf_montantOperation', document.querySelector("#uf_montantOperation").value);
+			fo_formulaire.append('ui_identifiantCategorie', document.querySelector("#ui_identifiantCategorie").value);
+			fo_formulaire.append('us_nomEntreprise', document.querySelector("#us_nomEntreprise").value);
+			fo_formulaire.append('us_nomVille', document.querySelector("#us_nomVille").value);
+
+			fetch(
+				'/ajax/operation.ajax.php',
+				{
+					method: "POST",
+					body: fo_formulaire
+				}
+			).then((po_retour) => {
+				po_retour.json().then((po_data) => {
+					console.log(po_data);
+				});
+			}).catch((po_erreur) => {
+				console.error(po_erreur);
+			});
+		});
+	</script>
+</body>
+</html>
