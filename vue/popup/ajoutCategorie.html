@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<title>Ma Banque</title>
+	<link rel="icon" href="../../img/assets/ma_banque.png">
+	<link rel="stylesheet" href="/styles/formulaire.css">
+	<link rel="stylesheet" href="/styles/animations.css">
+</head>
+<body>
+	<div class="container">
+		<h2 class="display-2">Enregistrer une nouvelle catégorie</h2>
+		<form method="post" class="" novalidate="novalidate">
+			<div class="row">
+				<div class="col col-md-6">
+					<label for="us_nomCategorie" class="form-label">Nom de la catégorie <span class="asterix-requis">*</span></label>
+					<div class="input-group mb-md-3">
+						<input type="text" class="form-control" name="us_nomCategorie" id="us_nomCategorie" required="required" aria-required="true">
+					</div>
+				</div>
+				<div class="col col-md-6">
+					<label for="ui_identifiantParent" class="form-label">Catégorie parente</label>
+					<div class="input-group mb-md-3">
+						<!-- Styliser le select pour lui redonner l'aspect Bootstrap (avant de lui donner le design définitif pour l'application) -->
+						<select class="form-select form-select2" name="ui_identifiantParent" id="ui_identifiantParent"></select>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col col-md-12">
+					<button class="btn btn-primary btn-enregistrement" id="btn-enregistrer">Enregistrer</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+		// Ajout d'une nouvelle catégorie
+		document.querySelector("#btn-enregistrer").addEventListener('click', (po_event) => {
+			po_event.preventDefault();
+			po_event.stopPropagation();
+
+			let fo_formulaire = new FormData();
+			fo_formulaire.append('route', 'ajout');
+			fo_formulaire.append('us_nomCategorie', document.querySelector("#us_nomCategorie").value);
+			fo_formulaire.append('ui_identifiantParent', document.querySelector("#ui_identifiantParent").value);
+
+			fetch(
+				'/ajax/categorie.ajax.php',
+				{
+					method: "POST",
+					body: fo_formulaire
+				}
+			).then((po_retour) => {
+				po_retour.json().then((po_data) => {
+					console.log(po_data);
+					document.forms[0].reset();
+					// TODO: Désélectionner l'option choisie dans le select
+				});
+			}).catch((po_erreur) => {
+				console.error(po_erreur);
+			});
+		});
+
+		// TODO: Faire une fonction JS récursive pour la construction du select pour ne pas avoir de limite de profondeur côté code
+		// TODO: Dans la fonction récursive, compter la profondeur et ajouter un attriber dans le <option> qui permet de bloquer la saisie d'une nouvelle catégorie si on est déjà au max de la profondeur
+
+		// TODO: Faire une fonction js qui permet de régénérer le select quand on ajoute une catégorie
+		window.addEventListener('load', () => {
+			let fo_elementSelect = document.querySelector("#ui_identifiantParent");
+			let fo_elementOption;
+
+			// On va exécuter l'action uniquement si le select est vide
+			if (fo_elementSelect.innerHTML == '') {
+				let fo_formulaire = new FormData();
+				fo_formulaire.append('route', 'afficheTout');
+
+				fetch(
+					'/ajax/categorie.ajax.php',
+					{
+						method: "POST",
+						body: fo_formulaire
+					}
+				).then((po_retour) => {
+					po_retour.json().then((po_data) => {
+						// On crée une option vide présélectionnée
+						fo_elementOption = document.createElement("option");
+						fo_elementOption.textContent = "Aucune";
+						fo_elementOption.value = "";
+						fo_elementOption.selected = true
+						fo_elementSelect.appendChild(fo_elementOption);
+
+						// On va parcourir le tableau des catégories que l'on a pu récupérer
+						po_data.ao_retourAjax.aa_listeCategorie.forEach(pv_categorie => {
+							// Si l'on a affaire à un tableau alors c'est qu'on a des enfants
+							if (pv_categorie instanceof Array) {
+								let fb_isPremiereLigne = true;
+								let fs_nomParent = "";
+								// On parcourt donc le tableau des enfants
+								pv_categorie.forEach(po_categorie => {
+									// Si on est sur la première ligne des enfants alors on a affaire au détail de la catégorie parente
+									if (fb_isPremiereLigne) {
+										fb_isPremiereLigne = false;
+										// On récupère le nom de la catégorie parente pour le concaténer avec la catégorie enfant
+										fs_nomParent += po_categorie.as_nomCategorie;
+										// On crée l'option du parent
+										fo_elementOption = document.createElement("option");
+										fo_elementOption.textContent = po_categorie.as_nomCategorie;
+										fo_elementOption.value = po_categorie.ai_idCategorie;
+										fo_elementSelect.appendChild(fo_elementOption);
+									}
+									else {
+										// On vérifie qu'on a bien un objet
+										if (po_categorie instanceof Object) {
+											// On crée la catégorie enfant
+											fo_elementOption = document.createElement("option");
+											// On concatène avec le nom du parent pour s'y retrouver
+											fo_elementOption.textContent = fs_nomParent + " > " + po_categorie.as_nomCategorie;
+											fo_elementOption.value = po_categorie.ai_idCategorie;
+											fo_elementSelect.appendChild(fo_elementOption);
+										}
+										else {
+											// Sinon on sait pas ce qu'on a
+											console.log(po_categorie);
+										}
+									}
+								});
+							}
+							// Si c'est un objet alors c'est une catégorie sans enfant
+							else if (pv_categorie instanceof Object) {
+								fo_elementOption = document.createElement("option");
+								fo_elementOption.textContent = pv_categorie.as_nomCategorie;
+								fo_elementOption.value = pv_categorie.ai_idCategorie;
+								fo_elementSelect.appendChild(fo_elementOption);
+							}
+							else {
+								// Sinon on sait pas ce qu'on a
+								console.log(po_categorie);
+							}
+						});
+					});
+				}).catch((po_erreur) => {
+					console.error(po_erreur);
+				});
+			}
+		})
+	</script>
+	<script>
+		// Script JQuery
+		$(document).ready(function() {
+			$('.form-select2').select2({
+				language: {
+					noResults: () => {
+						return "Aucune catégorie trouvée";
+					}
+				}
+			});
+		});
+	</script>
+</body>
+</html>
