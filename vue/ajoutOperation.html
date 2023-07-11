@@ -5,6 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<title>Ma Banque</title>
 	<link rel="icon" href="../img/assets/ma_banque.png">
 	<link rel="stylesheet" href="/styles/formulaire.css">
@@ -49,9 +52,7 @@
 				<div class="col col-md-12">
 					<label for="ui_identifiantCategorie" class="form-label">Catégorie du paiement <span class="asterix-requis">*</span></label>
 					<div class="input-group mb-md-3">
-						<select class="form-select" name="ui_identifiantCategorie" id="ui_identifiantCategorie" required="required" aria-required="true">
-		
-						</select>
+						<select class="form-select form-select2" name="ui_identifiantCategorie" id="ui_identifiantCategorie" required="required" aria-required="true"></select>
 						<button class="btn btn-primary">Ajouter une catégorie</button>
 					</div>
 				</div>
@@ -59,17 +60,17 @@
 
 			<div class="row">
 				<div class="col col-md-6">
-					<label for="us_nomEntreprise" class="form-label">Entreprise d'achat <span class="asterix-requis">*</span></label>
+					<label for="us_nomEntreprise" class="form-label">Entreprise d'achat </label>
 					<div class="input-group mb-md-3">
-						<input type="text" class="form-control" name="us_nomEntreprise" id="us_nomEntreprise" required="required" aria-required="true">
+						<input type="text" class="form-control" name="us_nomEntreprise" id="us_nomEntreprise">
 						<button class="btn btn-primary">Ajouter une entreprise</button>
 					</div>
 				</div>
 				<div class="col col-md-6">
 					
-					<label for="us_nomVille" class="form-label">Ville d'achat <span class="asterix-requis">*</span></label>
+					<label for="us_nomVille" class="form-label">Ville d'achat </label>
 					<div class="input-group mb-md-3">
-						<input type="text" class="form-control" name="us_nomVille" id="us_nomVille" required="required" aria-required="true">
+						<input type="text" class="form-control" name="us_nomVille" id="us_nomVille">
 						<button class="btn btn-primary">Ajouter une ville</button>
 					</div>
 				</div>
@@ -82,7 +83,11 @@
 			</div>
 		</form>
 	</div>
+	<script src="/functions/fcts_javascript/categorie.js"></script>
 	<script>
+		// Chargement des catégories
+		window.addEventListener('load', fct_genererSelectCategorie("ui_identifiantCategorie"));
+
 		// Affichage de la date du jour par défaut
 		document.querySelector("#ud_dateOperation").value = new Date().toISOString().slice(0, 10);
 

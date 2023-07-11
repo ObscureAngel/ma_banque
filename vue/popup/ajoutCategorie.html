@@ -40,6 +40,7 @@
 			</div>
 		</form>
 	</div>
+	<script src="/functions/fcts_javascript/categorie.js"></script>
 	<script>
 		// Ajout d'une nouvelle catégorie
 		document.querySelector("#btn-enregistrer").addEventListener('click', (po_event) => {
@@ -68,92 +69,11 @@
 			});
 		});
 
-		// TODO: Faire une fonction JS récursive pour la construction du select pour ne pas avoir de limite de profondeur côté code
-		// TODO: Dans la fonction récursive, compter la profondeur et ajouter un attriber dans le <option> qui permet de bloquer la saisie d'une nouvelle catégorie si on est déjà au max de la profondeur
-
-		// TODO: Faire une fonction js qui permet de régénérer le select quand on ajoute une catégorie
-		window.addEventListener('load', () => {
-			let fo_elementSelect = document.querySelector("#ui_identifiantParent");
-			let fo_elementOption;
-
-			// On va exécuter l'action uniquement si le select est vide
-			if (fo_elementSelect.innerHTML == '') {
-				let fo_formulaire = new FormData();
-				fo_formulaire.append('route', 'afficheTout');
-
-				fetch(
-					'/ajax/categorie.ajax.php',
-					{
-						method: "POST",
-						body: fo_formulaire
-					}
-				).then((po_retour) => {
-					po_retour.json().then((po_data) => {
-						// On crée une option vide présélectionnée
-						fo_elementOption = document.createElement("option");
-						fo_elementOption.textContent = "Aucune";
-						fo_elementOption.value = "";
-						fo_elementOption.selected = true
-						fo_elementSelect.appendChild(fo_elementOption);
-
-						// On va parcourir le tableau des catégories que l'on a pu récupérer
-						po_data.ao_retourAjax.aa_listeCategorie.forEach(pv_categorie => {
-							// Si l'on a affaire à un tableau alors c'est qu'on a des enfants
-							if (pv_categorie instanceof Array) {
-								let fb_isPremiereLigne = true;
-								let fs_nomParent = "";
-								// On parcourt donc le tableau des enfants
-								pv_categorie.forEach(po_categorie => {
-									// Si on est sur la première ligne des enfants alors on a affaire au détail de la catégorie parente
-									if (fb_isPremiereLigne) {
-										fb_isPremiereLigne = false;
-										// On récupère le nom de la catégorie parente pour le concaténer avec la catégorie enfant
-										fs_nomParent += po_categorie.as_nomCategorie;
-										// On crée l'option du parent
-										fo_elementOption = document.createElement("option");
-										fo_elementOption.textContent = po_categorie.as_nomCategorie;
-										fo_elementOption.value = po_categorie.ai_idCategorie;
-										fo_elementSelect.appendChild(fo_elementOption);
-									}
-									else {
-										// On vérifie qu'on a bien un objet
-										if (po_categorie instanceof Object) {
-											// On crée la catégorie enfant
-											fo_elementOption = document.createElement("option");
-											// On concatène avec le nom du parent pour s'y retrouver
-											fo_elementOption.textContent = fs_nomParent + " > " + po_categorie.as_nomCategorie;
-											fo_elementOption.value = po_categorie.ai_idCategorie;
-											fo_elementSelect.appendChild(fo_elementOption);
-										}
-										else {
-											// Sinon on sait pas ce qu'on a
-											console.log(po_categorie);
-										}
-									}
-								});
-							}
-							// Si c'est un objet alors c'est une catégorie sans enfant
-							else if (pv_categorie instanceof Object) {
-								fo_elementOption = document.createElement("option");
-								fo_elementOption.textContent = pv_categorie.as_nomCategorie;
-								fo_elementOption.value = pv_categorie.ai_idCategorie;
-								fo_elementSelect.appendChild(fo_elementOption);
-							}
-							else {
-								// Sinon on sait pas ce qu'on a
-								console.log(po_categorie);
-							}
-						});
-					});
-				}).catch((po_erreur) => {
-					console.error(po_erreur);
-				});
-			}
-		})
+		window.addEventListener('load', fct_genererSelectCategorie("ui_identifiantParent"));
 	</script>
 	<script>
 		// Script JQuery
-		$(document).ready(function() {
+		/*$(document).ready(function() {
 			$('.form-select2').select2({
 				language: {
 					noResults: () => {
@@ -161,7 +81,7 @@
 					}
 				}
 			});
-		});
+		});*/
 	</script>
 </body>
 </html>
