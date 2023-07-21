@@ -59,10 +59,12 @@
 					body: fo_formulaire
 				}
 			).then((po_retour) => {
+				//console.log(po_retour);
 				po_retour.json().then((po_data) => {
 					console.log(po_data);
 					document.forms[0].reset();
-					// TODO: Désélectionner l'option choisie dans le select
+					// On régénère le select
+					fct_genererSelectCategorie("ui_identifiantParent");
 				});
 			}).catch((po_erreur) => {
 				console.error(po_erreur);
@@ -70,18 +72,6 @@
 		});
 
 		window.addEventListener('load', fct_genererSelectCategorie("ui_identifiantParent"));
-	</script>
-	<script>
-		// Script JQuery
-		/*$(document).ready(function() {
-			$('.form-select2').select2({
-				language: {
-					noResults: () => {
-						return "Aucune catégorie trouvée";
-					}
-				}
-			});
-		});*/
 	</script>
 </body>
 </html>

@@ -11,8 +11,10 @@
  * 8 Crédit (les plus)
  */
 
-require_once 'controller/cla_PDOMySQL.class.php';
+require_once 'controller/DB/cla_PDOMySQL.class.php';
 require_once 'model/cla_Utilisateur.class.php';
+
+use MaBanque\DB\cla_PDOMySQL;
 
 session_start();
 

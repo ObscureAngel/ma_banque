@@ -53,36 +53,35 @@ function fct_genererSelectCategorie(ps_idElementSelect) {
 	let fo_elementSelect = document.querySelector("#" + ps_idElementSelect);
 	let fo_elementOption;
 
-	// On va exécuter l'action uniquement si le select est vide
-	if (fo_elementSelect.innerHTML == '') {
-		let fo_formulaire = new FormData();
-		fo_formulaire.append('route', 'afficheTout');
+	// On vide le select avant de le remplir
+	fo_elementSelect.innerHTML = '';
+	let fo_formulaire = new FormData();
+	fo_formulaire.append('route', 'afficheTout');
 
-		fetch(
-			'/ajax/categorie.ajax.php',
-			{
-				method: "POST",
-				body: fo_formulaire
-			}
-		).then((po_retour) => {
-			po_retour.json().then((po_data) => {
-				// On crée une option vide présélectionnée
-				fo_elementOption = document.createElement("option");
-				fo_elementOption.textContent = "Aucune";
-				fo_elementOption.value = "";
-				fo_elementOption.selected = true
-				fo_elementSelect.appendChild(fo_elementOption);
+	fetch(
+		'/ajax/categorie.ajax.php',
+		{
+			method: "POST",
+			body: fo_formulaire
+		}
+	).then((po_retour) => {
+		po_retour.json().then((po_data) => {
+			// On crée une option vide présélectionnée
+			fo_elementOption = document.createElement("option");
+			fo_elementOption.textContent = "Aucune";
+			fo_elementOption.value = "";
+			fo_elementOption.selected = true
+			fo_elementSelect.appendChild(fo_elementOption);
 
-				// On va parcourir le tableau des catégories que l'on a pu récupérer
-				po_data.ao_retourAjax.aa_listeCategorie.forEach(pv_categorie => {
-					let fs_nomParent = "";
-					fct_recurrenceAfficheCategorie(pv_categorie, fo_elementSelect, fs_nomParent);
-				});
+			// On va parcourir le tableau des catégories que l'on a pu récupérer
+			po_data.ao_retourAjax.aa_listeCategorie.forEach(pv_categorie => {
+				let fs_nomParent = "";
+				fct_recurrenceAfficheCategorie(pv_categorie, fo_elementSelect, fs_nomParent);
 			});
-		}).catch((po_erreur) => {
-			console.error(po_erreur);
 		});
-	}
+	}).catch((po_erreur) => {
+		console.error(po_erreur);
+	});
 
 	// Ajout de la fonction de tri
 	$(document).ready(function() {
